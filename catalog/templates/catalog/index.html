@@ -24,4 +24,6 @@
             <strong>Genres:</strong> <span class="badge badge-primary badge-pill">{{ num_genres }}</span>
         </li>
     </ul>
+    <hr>
+    <p>You have visited this page {{ num_visits }}{% if num_visits == 1 %} time{% else %} times{% endif %}.</p>
 {% endblock %}

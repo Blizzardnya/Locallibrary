@@ -20,16 +20,17 @@
                     Books
                 </a>
                 <div class="dropdown-menu" aria-labelledby="CustomerDropdownMenuLink">
-                    <a class="dropdown-item" href="{% url 'books' %}">View books</a>
+                    <a class="dropdown-item" href="{% url 'books' %}">View all books</a>
+                    <a class="dropdown-item" href="{% url 'my-borrowed' %}">My books</a>
                 </div>
             </li>
         </ul>
-{#        {% if request.user.is_authenticated %}#}
-{#            <span class="navbar-text">Hi {{ user.username }}!&nbsp</span>#}
-{#            <a href="{% url 'logout' %}" class="btn btn-outline-success my-2 my-sm-0">Logout</a>#}
-{#        {% else %}#}
-{#            <a href="{% url 'login' %}" class="btn btn-outline-success my-2 my-sm-0 float-left" >Login</a>#}
-{#        {% endif %}#}
+        {% if request.user.is_authenticated %}
+            <span class="navbar-text">Hi {{ user.username }}!&nbsp</span>
+            <a href="{% url 'logout' %}" class="btn btn-outline-success my-2 my-sm-0">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="btn btn-outline-success my-2 my-sm-0 float-left" >Login</a>
+        {% endif %}
     </div>
 
 </nav>
