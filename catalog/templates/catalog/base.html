@@ -6,9 +6,9 @@
     {% block title %}<title>Local Library</title>{% endblock %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<body>
+<body class="d-flex flex-column h-100">
     {% include 'catalog/navbar.html' %}
-    <main>
+    <main class="flex-shrink-0" role="main">
         <div class="container-fluid" style="margin-top: 2%">
             <div class="row">
                 <div class="col-sm-10">
@@ -78,7 +78,7 @@
             </div>
         </div>
     </main>
-    <footer class="my-5 pt-5 text-muted text-center text-small">
+    <footer class="footer mt-auto py-3 my-5 pt-5 text-muted text-center text-small">
         <p class="mb-1">© 2019 Library</p>
         <ul class="list-inline">
             <li class="list-inline-item"><a href="{% url 'index' %}">Home</a></li>
