@@ -1,0 +1,35 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <a class="navbar-brand" href="{% url 'index' %}">Library</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto">
+             <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="CustomerDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Authors
+                </a>
+                <div class="dropdown-menu" aria-labelledby="CustomerDropdownMenuLink">
+                    <a class="dropdown-item" href="#">View authors</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="CustomerDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Books
+                </a>
+                <div class="dropdown-menu" aria-labelledby="CustomerDropdownMenuLink">
+                    <a class="dropdown-item" href="#">View books</a>
+                </div>
+            </li>
+        </ul>
+{#        {% if request.user.is_authenticated %}#}
+{#            <span class="navbar-text">Hi {{ user.username }}!&nbsp</span>#}
+{#            <a href="{% url 'logout' %}" class="btn btn-outline-success my-2 my-sm-0">Logout</a>#}
+{#        {% else %}#}
+{#            <a href="{% url 'login' %}" class="btn btn-outline-success my-2 my-sm-0 float-left" >Login</a>#}
+{#        {% endif %}#}
+    </div>
+
+</nav>
