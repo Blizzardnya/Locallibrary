@@ -9,20 +9,23 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
                  <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="CustomerDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="AuthorDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Authors
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="CustomerDropdownMenuLink">
+                    <div class="dropdown-menu" aria-labelledby="AuthorDropdownMenuLink">
                         <a class="dropdown-item" href="{% url 'authors' %}">View authors</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="CustomerDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="BooksDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Books
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="CustomerDropdownMenuLink">
+                    <div class="dropdown-menu" aria-labelledby="BooksDropdownMenuLink">
                         <a class="dropdown-item" href="{% url 'books' %}">View all books</a>
                         <a class="dropdown-item" href="{% url 'my-borrowed' %}">My books</a>
+                        {% if perms.catalog.can_mark_returned %}
+                            <a class="dropdown-item" href="{% url 'loan-borrowed' %}">All loan books</a>
+                        {% endif %}
                     </div>
                 </li>
             </ul>

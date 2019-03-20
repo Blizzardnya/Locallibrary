@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from . models import *
 
@@ -55,8 +55,19 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     template_name = 'catalog/book/bookinstance_list_borrowed_user.html'
     paginate_by = 10
 
+
     def get_queryset(self):
         return BookInstance.objects.filter(
             borrowed=self.request.user,
             status__exact='o'
         ).order_by('due_back')
+
+
+class LoanedBooksListView(PermissionRequiredMixin, generic.ListView):
+    model = BookInstance
+    template_name = 'catalog/book/bookinstance_list_borrowed.html'
+    paginate_by = 10
+    permission_required = ('catalog.can_mark_returned',)
+
+    def get_queryset(self):
+        return BookInstance.objects.filter(status__exact='o').order_by('due_back')
