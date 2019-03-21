@@ -1,5 +1,5 @@
 {% extends "catalog/base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 
 {% if form.errors %}
@@ -8,31 +8,33 @@
 
 {% if next %}
     {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
+        <p>Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</p>
     {% else %}
-    <p>Please login to see this page.</p>
+        <p>Please login to see this page.</p>
     {% endif %}
 {% endif %}
 
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
 
-<div>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-</div>
-<div>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-</div>
+{#<div>#}
+{#  <td>{{ form.username.label_tag }}</td>#}
+{#  <td>{{ form.username }}</td>#}
+{#</div>#}
+{#<div>#}
+{#  <td>{{ form.password.label_tag }}</td>#}
+{#  <td>{{ form.password }}</td>#}
+{#</div>#}
+{{ form.username|as_crispy_field }}
+{{ form.password|as_crispy_field }}
 
 <div>
-  <input type="submit" value="login" />
+  <input type="submit" class="btn btn-primary" value="Login" />
   <input type="hidden" name="next" value="{{ next }}" />
 </div>
 </form>
-
+<hr>
 {# Assumes you setup the password_reset view in your URLconf #}
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
 

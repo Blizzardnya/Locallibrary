@@ -4,10 +4,22 @@
 
 {% block content %}
     <h1>Book List</h1>
-    <ul>
+    {% if perms.catalog.can_mark_returned %}
+        <a href="{% url 'book_create'%}" class="btn btn-primary">Create new book</a>
+    {% endif %}
+    <hr>
+    <ul class="list-group">
         {% for book in book_list %}
-        <li>
-            <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
+            </div>
+            {% if perms.catalog.can_mark_returned %}
+            <div>
+                <a href="{% url 'book-update' book.id %}" class="btn btn-warning">Edit</a>
+                <a href="{% url 'book-delete' book.id %}" class="btn btn-danger">Delete</a>
+            </div>
+            {% endif %}
         </li>
         {% empty %}
             <li>There are no books in the library.</li>

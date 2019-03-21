@@ -2,10 +2,12 @@
 
 {% block content %}
     <h1>Borrowed books</h1>
-    <ul>
+    <ul class="list-group">
         {% for bookinst in bookinstance_list %}
-        <li class="{% if bookinst.is_overdue %}text-danger{% endif %}">
-            <a href="{% url 'book-detail' bookinst.book.pk %}">{{bookinst.book.title}}</a> ({{ bookinst.due_back }}) - {{ bookinst.borrowed }}
+        <li class="{% if bookinst.is_overdue %}text-danger{% endif %} list-group-item d-flex justify-content-between align-items-center">
+
+            <div><a href="{% url 'book-detail' bookinst.book.pk %}">{{bookinst.book.title}}</a> ({{ bookinst.due_back }}) - {{ bookinst.borrowed }}</div>
+            <a href="{% url 'renew-book-librarian' bookinst.id %}" class="btn btn-outline-info btn-sm">Renew</a>
         </li>
         {% empty %}
             <p>There are no books borrowed.</p>
