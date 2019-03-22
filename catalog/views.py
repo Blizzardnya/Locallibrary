@@ -62,13 +62,13 @@ class BookListView(generic.ListView):
     model = Book
     context_object_name = 'book_list'
     template_name = 'catalog/book/book_list.html'
-    paginate_by = 10
+    paginate_by = 12
 
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     model = BookInstance
     template_name = 'catalog/book/bookinstance_list_borrowed_user.html'
-    paginate_by = 10
+    paginate_by = 12
 
     def get_queryset(self):
         return BookInstance.objects.filter(
@@ -137,6 +137,6 @@ class AuthorListView(generic.ListView):
     model = Author
     context_object_name = 'author_list'
     template_name = 'catalog/author/author_list.html'
-    paginate_by = 10
+    paginate_by = 12
 
 

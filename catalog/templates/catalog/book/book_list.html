@@ -3,26 +3,50 @@
 {% block title %}<title>Books</title>{% endblock %}
 
 {% block content %}
-    <h1>Book List</h1>
-    {% if perms.catalog.can_mark_returned %}
-        <a href="{% url 'book_create'%}" class="btn btn-primary">Create new book</a>
-    {% endif %}
-    <hr>
-    <ul class="list-group">
-        {% for book in book_list %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <div>
-                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})
-            </div>
+    <div class="container-fluid">
+        <div class="d-flex w-100 justify-content-between">
+            <h3>Book List</h3>
             {% if perms.catalog.can_mark_returned %}
-            <div>
-                <a href="{% url 'book-update' book.id %}" class="btn btn-warning">Edit</a>
-                <a href="{% url 'book-delete' book.id %}" class="btn btn-danger">Delete</a>
-            </div>
+                <a href="{% url 'book_create'%}" class="btn btn-success">Create new book</a>
             {% endif %}
-        </li>
-        {% empty %}
-            <li>There are no books in the library.</li>
-        {% endfor %}
-    </ul>
+        </div>
+        <hr>
+        <div class="row">
+            <ul class="list-group col-md-6">
+                {% for book in book_list %}
+                    {% if forloop.counter|divisibleby:"7" %}
+                        </ul>
+                        <ul class="list-group col-md-6">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a><br>
+                                <small>{{book.author}}</small>
+                            </div>
+                            {% if perms.catalog.can_mark_returned %}
+                            <span>
+                                <a href="{% url 'book-update' book.id %}" class="btn btn-warning">Edit</a>
+                                <a href="{% url 'book-delete' book.id %}" class="btn btn-danger">Delete</a>
+                            </span>
+                            {% endif %}
+                        </li>
+                    {% else %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a><br>
+                                <small>{{book.author}}</small>
+                            </div>
+                            {% if perms.catalog.can_mark_returned %}
+                            <span>
+                                <a href="{% url 'book-update' book.id %}" class="btn btn-warning">Edit</a>
+                                <a href="{% url 'book-delete' book.id %}" class="btn btn-danger">Delete</a>
+                            </span>
+                            {% endif %}
+                        </li>
+                    {% endif %}
+                {% empty %}
+                    <li>There are no books in the library.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}
