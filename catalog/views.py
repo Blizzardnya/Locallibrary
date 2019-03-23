@@ -35,7 +35,8 @@ def index(request):
 # ---------------------------------------------------------Books--------------------------------------------
 class BookCreateView(PermissionRequiredMixin, generic.CreateView):
     model = Book
-    fields = '__all__'
+    fields = ['title', 'author', 'summary', 'ISBN', 'genre', 'language']
+
     template_name = 'catalog/book/book_form.html'
     permission_required = ('catalog.can_mark_returned',)
 
