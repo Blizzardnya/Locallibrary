@@ -4,20 +4,25 @@
 
 {% block content %}
     <div class="container-fluid">
-        <h1>Title: {{ book.title }}</h1>
         <div class="row">
-            <div class="col-md-2">
-                <img  src="{% if book.image %} {{ book.image.url }} {% else %} {% static 'img/default-book.png' %} {% endif %}" class="img-thumbnail" style="width: 200px;" alt="{{ book.title }}">
-            </div>
-            <div class="col-md-10">
-                <p><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
-                <p><strong>Summary:</strong> {{ book.summary }}</p>
-                <p><strong>ISBN:</strong> {{ book.ISBN }}</p>
-                <p><strong>Language:</strong> {{ book.language }}</p>
-                <p><strong>Genre:</strong> {% for genre in book.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-xl-2 col-lg-3 col-md-4">
+                        <img  src="{% if book.image %} {{ book.image.url }} {% else %} {% static 'img/default-book.png' %} {% endif %}" class="card-img"  alt="{{ book.title }}">
+                    </div>
+                    <div class="col-xl-10 col-lg-9 col-md-8">
+                         <div class="card-body">
+                            <h3 class="card-title">{{ book.title }}</h3>
+                            <p class="card-text"><strong>Author:</strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
+                            <p class="card-text"><strong>Summary:</strong> {{ book.summary }}</p>
+                            <p class="card-text"><strong>ISBN:</strong> {{ book.ISBN }}</p>
+                            <p class="card-text"><strong>Language:</strong> {{ book.language }}</p>
+                            <p class="card-text"><strong>Genre:</strong> {% for genre in book.genre.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                         </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <hr>
         <h4>Copies</h4>
         <div class="row">
             <div class="list-group list-group-horizontal-lg">

@@ -3,17 +3,57 @@
 {% block title %}<title>{{ author }}</title>{% endblock %}
 
 {% block content %}
-    <h1>Author: {{ author }}</h1>
-    <p>{{ author.date_of_birth }} - {{ author.date_of_death }}</p>
+    <div class="container-fluid">
+        <h1>Author: {{ author }}</h1>
+        <p>{{ author.date_of_birth }} - {{ author.date_of_death }}</p>
 
-    <div style="margin-left:20px;margin-top:20px">
         <h4>Books</h4>
         <hr>
-        {% for book in author.book_set.all %}
-        <a href="{% url 'book-detail' book.id %}">{{ book.title }}</a>
-        <p>{{book.summary}}</p>
-        {% empty %}
-            <p>There are no book's.</p>
-        {% endfor %}
+        <div class="row">
+{#            {% for book in author.book_set.all %}#}
+{#                <a href="{% url 'book-detail' book.id %}">{{ book.title }}</a>#}
+{#                <p>{{book.summary}}</p>#}
+{#            {% empty %}#}
+{#                <p>There are no book's.</p>#}
+{#            {% endfor %}#}
+            <div class="col-xl-4 col-md-3">
+                <div class="list-group" id="list-tab" role="tablist">
+                {% for book in author.book_set.all %}
+                    <a class="{% if forloop.counter == 1 %}list-group-item list-group-item-action active{% else %}list-group-item list-group-item-action{% endif %}" id="book-{{ book.id }}-title" data-toggle="list" href="#book-{{ book.id }}" role="tab" aria-controls="{{ book.title }}">{{ book.title }}</a>
+                {% empty %}
+                    <p>There are no book's.</p>
+                {% endfor %}
+                </div>
+            </div>
+            <div class="col-xl-8 col-md-9">
+                <div class="tab-content" id="nav-tabContent">
+                    {% for book in author.book_set.all %}
+                        <div class="{% if forloop.counter == 1 %}tab-pane fade show active{% else %}tab-pane fade{% endif %}" id="book-{{ book.id }}" role="tabpanel" aria-labelledby="book-{{ book.id }}-title">
+                            <a href="{% url 'book-detail' book.id %}" class="btn btn-primary btn-block">View book</a>
+                            {{book.summary}}
+                        </div>
+                    {% empty %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+{#        <div class="row">#}
+{#          <div class="col-4">#}
+{#            <div class="list-group" id="list-tab" role="tablist">#}
+{#              <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>#}
+{#              <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>#}
+{#              <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>#}
+{#              <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>#}
+{#            </div>#}
+{#          </div>#}
+{#          <div class="col-8">#}
+{#            <div class="tab-content" id="nav-tabContent">#}
+{#              <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">...</div>#}
+{#              <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>#}
+{#              <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>#}
+{#              <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
     </div>
 {% endblock %}
