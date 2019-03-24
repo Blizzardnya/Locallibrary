@@ -8,7 +8,20 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mr-auto">
+                {% if request.user.is_authenticated %}
                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="AccountDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Account
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="AccountDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'my-borrowed' %}">My books</a>
+                        {% if perms.catalog.can_mark_returned %}
+                            <a class="dropdown-item" href="{% url 'loan-borrowed' %}">All loan books</a>
+                        {% endif %}
+                    </div>
+                </li>
+                {% endif %}
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="AuthorDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Authors
                     </a>
@@ -28,15 +41,10 @@
                             <a class="dropdown-item" href="{% url 'book_create' %}">Create book</a>
                         {% endif %}
                         <a class="dropdown-item" href="{% url 'books' %}">View all books</a>
-                        <a class="dropdown-item" href="{% url 'my-borrowed' %}">My books</a>
-                        {% if perms.catalog.can_mark_returned %}
-                            <a class="dropdown-item" href="{% url 'loan-borrowed' %}">All loan books</a>
-                        {% endif %}
                     </div>
                 </li>
             </ul>
             {% if request.user.is_authenticated %}
-                <span class="navbar-text">Hi {{ user.username }}!&nbsp</span>
                 <a href="{% url 'logout' %}" class="btn btn-outline-success my-2 my-sm-0">Logout</a>
             {% else %}
                 <a href="{% url 'login' %}" class="btn btn-outline-success my-2 my-sm-0 float-left" >Login</a>

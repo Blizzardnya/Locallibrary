@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">You library card</h5>
+        {% if request.user.is_authenticated %}
+            <h6 class="card-subtitle mb-2 text-muted">Username: {{ user.username }}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Fullname: {{ user.last_name }} {{ user.first_name }}</h6>
+        {% else %}
+            <p>Please login to see this info.</p>
+        {% endif %}
+    </div>
+    {% if request.user.is_authenticated %}
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Loan book count: {{ num_loaned_by_user }}</li>
+            <li class="list-group-item">Last loan book title: {{ last_loaned_book_title }}</li>
+        </ul>
+        <div class="card-body">
+            <a href="{% url 'my-borrowed' %}" class="card-link btn btn-primary">View loaned books</a>
+        </div>
+    {% endif %}
+</div>

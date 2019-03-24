@@ -19,6 +19,7 @@ def index(request):
     num_instances_available = BookInstance.objects.filter(status__exact='a').count()
     num_authors = Author.objects.all().count()
     num_genres = Genre.objects.all().count()
+    num_languages = Language.objects.all().count()
 
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
@@ -28,7 +29,7 @@ def index(request):
         'catalog/index.html',
         context={'num_books': num_books, 'num_instances': num_instances,
                  'num_instances_available': num_instances_available, 'num_authors': num_authors,
-                 'num_genres': num_genres, 'num_visits': num_visits},
+                 'num_genres': num_genres, 'num_visits': num_visits, 'num_languages': num_languages},
     )
 
 
@@ -64,28 +65,6 @@ class BookListView(generic.ListView):
     context_object_name = 'book_list'
     template_name = 'catalog/book/book_list.html'
     paginate_by = 12
-
-
-class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
-    model = BookInstance
-    template_name = 'catalog/book/bookinstance_list_borrowed_user.html'
-    paginate_by = 12
-
-    def get_queryset(self):
-        return BookInstance.objects.filter(
-            borrowed=self.request.user,
-            status__exact='o'
-        ).order_by('due_back')
-
-
-class LoanedBooksListView(PermissionRequiredMixin, generic.ListView):
-    model = BookInstance
-    template_name = 'catalog/book/bookinstance_list_borrowed.html'
-    paginate_by = 10
-    permission_required = ('catalog.can_mark_returned',)
-
-    def get_queryset(self):
-        return BookInstance.objects.filter(status__exact='o').order_by('due_back')
 
 
 @permission_required('catalog.can_mark_returned')
