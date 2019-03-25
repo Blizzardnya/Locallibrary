@@ -5,14 +5,33 @@
         <h1>Borrowed books</h1>
         <div class="row">
             <ul class="list-group col-md-6">
+                <h3>Overdue books: </h3>
                 {% for bookinst in bookinstance_list %}
-                    <li class="list-group-item {% if bookinst.is_overdue %}list-group-item-danger{% endif %}">
-                        <a href="{% url 'book-detail' bookinst.book.pk %}">{{bookinst.book.title}}</a> ({{ bookinst.due_back }})
-                    </li>
-                    {% if forloop.counter|divisibleby:"6" %}
-                        </ul>
-                        <ul class="list-group col-md-6">
+                    {% if bookinst.is_overdue %}
+                        <li class="list-group-item list-group-item-danger">
+                            <a href="{% url 'book-detail' bookinst.book.pk %}">{{bookinst.book.title}}</a> ({{ bookinst.due_back }})
+                        </li>
                     {% endif %}
+{#                    {% if forloop.counter|divisibleby:"6" %}#}
+{#                        </ul>#}
+{#                        <ul class="list-group col-md-6">#}
+{#                    {% endif %}#}
+                {% empty %}
+                    <p>There are no overdue books borrowed.</p>
+                {% endfor %}
+            </ul>
+            <ul class="list-group col-md-6">
+                <h3>Not overdue books: </h3>
+                {% for bookinst in bookinstance_list %}
+                    {% if not bookinst.is_overdue %}
+                        <li class="list-group-item list-group-item-success">
+                            <a href="{% url 'book-detail' bookinst.book.pk %}">{{bookinst.book.title}}</a> ({{ bookinst.due_back }})
+                        </li>
+                    {% endif %}
+{#                    {% if forloop.counter|divisibleby:"6" %}#}
+{#                        </ul>#}
+{#                        <ul class="list-group col-md-6">#}
+{#                    {% endif %}#}
                 {% empty %}
                     <p>There are no books borrowed.</p>
                 {% endfor %}
